@@ -1,0 +1,415 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Birthday Card for Didi</title>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Patrick+Hand&family=Gaegu:wght@400;700&family=Schoolbell&display=swap');
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      background-color: transparent;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      padding: 12px;
+      font-family: 'Ink Free', 'Patrick Hand', 'Gaegu', 'Segoe Print', 'Comic Sans MS', cursive, sans-serif;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    .card-frame {
+      width: 100%;
+      max-width: 520px;
+      background: radial-gradient(circle at 50% 15%, #163860 0%, #0c2340 50%, #061325 100%);
+      border-radius: 26px;
+      box-shadow: 0 16px 40px rgba(2, 10, 24, 0.65), 0 0 0 4px #0a192f;
+      position: relative;
+      overflow: hidden;
+      padding: 24px 20px 20px 20px;
+      color: #f7fafc;
+    }
+
+    /* Construction paper texture simulation */
+    .card-frame::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background-image: radial-gradient(#ffffff 0.6px, transparent 0.6px);
+      background-size: 14px 14px;
+      opacity: 0.05;
+      pointer-events: none;
+    }
+
+    /* Childlike hand-drawn border */
+    .hand-drawn-border {
+      position: absolute;
+      inset: 10px;
+      border: 3px dashed #5ec5f8;
+      border-radius: 20px;
+      opacity: 0.75;
+      pointer-events: none;
+      box-shadow: inset 0 0 12px rgba(94, 197, 248, 0.2);
+    }
+
+    .inner-squiggly {
+      position: absolute;
+      inset: 6px;
+      border: 1.5px solid rgba(255, 255, 255, 0.15);
+      border-radius: 23px;
+      pointer-events: none;
+    }
+
+    /* Content Area */
+    .card-content {
+      position: relative;
+      z-index: 2;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+    }
+
+    /* Header banner */
+    .greeting-header {
+      font-size: 23px;
+      line-height: 1.35;
+      font-weight: 700;
+      color: #ffe066;
+      text-shadow: 2px 2px 0px #d97706, 0 0 12px rgba(255, 224, 102, 0.4);
+      margin: 8px 10px 14px 10px;
+      letter-spacing: 0.5px;
+      transform: rotate(-0.5deg);
+    }
+
+    .header-heart {
+      display: inline-block;
+      color: #ff6b8b;
+      font-size: 22px;
+      animation: heartbeat 2s infinite ease-in-out;
+      transform-origin: center;
+    }
+
+    @keyframes heartbeat {
+      0%, 100% { transform: scale(1); }
+      50% { transform: scale(1.18); }
+    }
+
+    /* Body Paragraphs */
+    .message-container {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      width: 100%;
+      padding: 0 6px;
+    }
+
+    .message-block {
+      background: rgba(255, 255, 255, 0.06);
+      border-radius: 14px;
+      padding: 10px 14px;
+      border: 1px dashed rgba(165, 216, 255, 0.3);
+      position: relative;
+    }
+
+    .message-text {
+      font-size: 16px;
+      line-height: 1.48;
+      color: #e7f5ff;
+      letter-spacing: 0.2px;
+      text-align: left;
+      font-weight: 600;
+    }
+
+    .message-text.subtle-pink {
+      color: #ffd6e0;
+    }
+
+    .message-text.warm-gold {
+      color: #fff3bf;
+    }
+
+    .message-text.soft-blue {
+      color: #d0ebff;
+    }
+
+    /* Small doodle accents inside message blocks */
+    .inline-doodle {
+      vertical-align: middle;
+      display: inline-block;
+      margin: 0 4px;
+    }
+
+    /* Floating ocean and childlike doodle SVGs */
+    .doodle {
+      position: absolute;
+      pointer-events: none;
+      z-index: 1;
+    }
+
+    /* Signature Sticker at Bottom */
+    .signature-container {
+      margin-top: 14px;
+      margin-bottom: 4px;
+      display: flex;
+      justify-content: flex-end;
+      width: 100%;
+      padding-right: 10px;
+    }
+
+    .signature-tape {
+      background: #fdfbf7;
+      padding: 8px 18px;
+      border-radius: 4px 14px 6px 16px;
+      box-shadow: 2px 4px 10px rgba(0, 0, 0, 0.35);
+      transform: rotate(-2deg);
+      border-left: 3px solid #ff8787;
+      border-right: 3px solid #74c0fc;
+      position: relative;
+    }
+
+    /* Faux tape on top */
+    .signature-tape::before {
+      content: "";
+      position: absolute;
+      top: -8px;
+      left: 20%;
+      width: 42px;
+      height: 15px;
+      background: rgba(255, 255, 255, 0.55);
+      border-radius: 2px;
+      box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+      transform: rotate(3deg);
+    }
+
+    .signature-text {
+      color: #000000;
+      font-size: 18px;
+      font-weight: 800;
+      letter-spacing: 0.5px;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    /* Bubble decorations */
+    .bubble {
+      position: absolute;
+      background: radial-gradient(circle at 30% 30%, rgba(255, 255, 255, 0.8), rgba(116, 192, 252, 0.2) 60%, rgba(255, 255, 255, 0.1));
+      border: 1px solid rgba(255, 255, 255, 0.6);
+      border-radius: 50%;
+      pointer-events: none;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="card-frame">
+    <!-- Hand drawn border lines -->
+    <div class="hand-drawn-border"></div>
+    <div class="inner-squiggly"></div>
+
+    <!-- Childlike ocean doodles placed around edges -->
+
+    <!-- Top Left: Happy Little Cloud & Stars -->
+    <svg class="doodle" style="top: 14px; left: 14px;" width="56" height="38" viewBox="0 0 56 38" fill="none">
+      <path d="M12 28C7 28 4 24 6 19C7 14 13 13 16 16C18 10 27 9 30 14C34 11 41 12 43 17C48 18 49 24 45 28C41 30 15 30 12 28Z" fill="#ffffff" fill-opacity="0.85" stroke="#74c0fc" stroke-width="1.8" stroke-linecap="round"/>
+      <!-- Happy face on cloud -->
+      <circle cx="22" cy="20" r="1.5" fill="#1864ab"/>
+      <circle cx="30" cy="20" r="1.5" fill="#1864ab"/>
+      <path d="M24 23 Q26 26 28 23" stroke="#ff6b8b" stroke-width="1.5" stroke-linecap="round" fill="none"/>
+      <!-- Rosy cheeks -->
+      <circle cx="20" cy="22" r="1.5" fill="#ffa8a8"/>
+      <circle cx="32" cy="22" r="1.5" fill="#ffa8a8"/>
+    </svg>
+
+    <!-- Little twinkle stars -->
+    <svg class="doodle" style="top: 16px; right: 28px;" width="24" height="24" viewBox="0 0 24 24">
+      <polygon points="12,2 14.5,8.5 21,10 16,14.5 18,21 12,17 6,21 8,14.5 3,10 9.5,8.5" fill="#ffe066" stroke="#f59f00" stroke-width="1" />
+    </svg>
+    <svg class="doodle" style="top: 48px; right: 12px;" width="16" height="16" viewBox="0 0 24 24">
+      <polygon points="12,2 14.5,8.5 21,10 16,14.5 18,21 12,17 6,21 8,14.5 3,10 9.5,8.5" fill="#ffec99" />
+    </svg>
+
+    <!-- Top bubbles -->
+    <div class="bubble" style="width: 14px; height: 14px; top: 22px; left: 74px;"></div>
+    <div class="bubble" style="width: 9px; height: 9px; top: 15px; left: 95px;"></div>
+    <div class="bubble" style="width: 18px; height: 18px; top: 68px; right: 24px;"></div>
+    <div class="bubble" style="width: 10px; height: 10px; top: 92px; right: 16px;"></div>
+
+    <!-- Cute baby whale puffing love water (top-left) -->
+    <svg class="doodle" style="top: 48px; left: 10px;" width="55" height="42" viewBox="0 0 60 45" fill="none">
+      <!-- Water sprout with tiny heart -->
+      <path d="M22 14 C20 8 16 6 12 7" stroke="#a5d8ff" stroke-width="2" stroke-linecap="round"/>
+      <path d="M25 12 C25 6 29 4 33 5" stroke="#a5d8ff" stroke-width="2" stroke-linecap="round"/>
+      <path d="M28 3 C27 1 24 2 24 4 C24 6 28 8 28 8 C28 8 32 6 32 4 C32 2 29 1 28 3 Z" fill="#ff8787" />
+      <!-- Whale body -->
+      <path d="M8 28 C8 19 18 15 32 15 C45 15 50 24 50 29 C45 34 38 36 28 36 C18 36 8 34 8 28 Z" fill="#4dabf7" stroke="#1971c2" stroke-width="1.8"/>
+      <!-- Whale tail -->
+      <path d="M48 27 C53 22 57 20 59 22 C58 26 53 28 50 29 C54 32 58 35 57 37 C54 37 50 33 47 30 Z" fill="#4dabf7" stroke="#1971c2" stroke-width="1.6"/>
+      <!-- Eye & smile -->
+      <circle cx="18" cy="24" r="2" fill="#0b2b52"/>
+      <path d="M22 28 Q25 31 28 28" stroke="#0b2b52" stroke-width="1.5" stroke-linecap="round"/>
+      <circle cx="15" cy="27" r="1.8" fill="#ff8787"/>
+    </svg>
+
+    <!-- Main Content Inside Card -->
+    <div class="card-content">
+      
+      <!-- Greeting Headline -->
+      <div class="greeting-header">
+        ★ Happy birthday to the most wonderful sister in the world. <span class="header-heart">♥</span>
+      </div>
+
+      <!-- Messages -->
+      <div class="message-container">
+        
+        <!-- Para 1 -->
+        <div class="message-block" style="transform: rotate(0.4deg);">
+          <p class="message-text warm-gold">
+            Though we are staying miles apart, I really love you so much.
+            <svg class="inline-doodle" width="18" height="16" viewBox="0 0 24 24" fill="#ff6b8b">
+              <path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/>
+            </svg>
+          </p>
+        </div>
+
+        <!-- Para 2 -->
+        <div class="message-block" style="transform: rotate(-0.3deg);">
+          <p class="message-text subtle-pink">
+            Now I'm staying in hostel, and I feel homesick very often and I start missing the moments I have spent with u.
+            <svg class="inline-doodle" width="18" height="18" viewBox="0 0 24 24" fill="none">
+              <!-- Cute little letter/envelope doodle -->
+              <rect x="2" y="5" width="20" height="14" rx="2" fill="#fff" stroke="#ff8787" stroke-width="1.8"/>
+              <path d="M2 6L12 13L22 6" stroke="#ff8787" stroke-width="1.8"/>
+              <circle cx="12" cy="13" r="2.2" fill="#fa5252"/>
+            </svg>
+          </p>
+        </div>
+
+        <!-- Para 3 -->
+        <div class="message-block" style="transform: rotate(0.5deg);">
+          <p class="message-text soft-blue">
+            I feel those days when we both used to go to school together and come home and just pass time were the best days.
+            <!-- Little two sisters doodle holding hands -->
+            <svg class="inline-doodle" width="38" height="24" viewBox="0 0 44 26" fill="none">
+              <!-- Big sister -->
+              <circle cx="12" cy="7" r="4.5" fill="#ffe066" stroke="#d97706" stroke-width="1.2"/>
+              <path d="M12 12 V 22 M8 16 L16 16" stroke="#ffe066" stroke-width="2" stroke-linecap="round"/>
+              <path d="M9 22 L12 22 L15 22" stroke="#ffe066" stroke-width="2"/>
+              <!-- Little sister -->
+              <circle cx="26" cy="10" r="3.5" fill="#ffa8a8" stroke="#e03131" stroke-width="1.2"/>
+              <path d="M26 14 V 22 M22 17 L30 17" stroke="#ffa8a8" stroke-width="2" stroke-linecap="round"/>
+              <!-- Holding hands -->
+              <path d="M16 16 C 19 18 20 18 22 17" stroke="#ffffff" stroke-width="1.8" stroke-linecap="round"/>
+              <!-- Tiny school backpack -->
+              <rect x="4" y="13" width="3.5" height="5" rx="1" fill="#74c0fc"/>
+              <rect x="29" y="14" width="3" height="4.5" rx="1" fill="#ff922b"/>
+            </svg>
+          </p>
+        </div>
+
+        <!-- Para 4 -->
+        <div class="message-block" style="transform: rotate(-0.4deg);">
+          <p class="message-text" style="color: #c5f6fa;">
+            After growing up, this AI headaches and jobs headaches.
+            <!-- Funny dizzy computer doodle -->
+            <svg class="inline-doodle" width="26" height="20" viewBox="0 0 30 22" fill="none">
+              <rect x="3" y="2" width="24" height="15" rx="2" fill="#e9ecef" stroke="#868e96" stroke-width="1.5"/>
+              <!-- Dizzy face on monitor -->
+              <path d="M8 8 L11 11 M11 8 L8 11" stroke="#495057" stroke-width="1.2"/>
+              <path d="M19 8 L22 11 M22 8 L19 11" stroke="#495057" stroke-width="1.2"/>
+              <path d="M13 13 Q15 11 17 13" stroke="#e03131" stroke-width="1.2" fill="none"/>
+              <!-- Little steam / scribble headaches -->
+              <path d="M11 0 Q13 -3 15 0" stroke="#ffa8a8" stroke-width="1.2"/>
+              <path d="M17 -1 Q19 -4 21 -1" stroke="#ffa8a8" stroke-width="1.2"/>
+              <line x1="10" y1="17" x2="20" y2="17" stroke="#868e96" stroke-width="2"/>
+            </svg>
+          </p>
+        </div>
+
+        <!-- Para 5 -->
+        <div class="message-block" style="transform: rotate(0.3deg); background: rgba(255, 107, 139, 0.12); border-color: rgba(255, 107, 139, 0.4);">
+          <p class="message-text" style="color: #fff; font-size: 17px; font-weight: 700;">
+            Finally, no matter what, I love you very, very much.
+            <span style="color: #ff6b8b;">♥♥♥</span>
+          </p>
+        </div>
+
+      </div>
+
+      <!-- Ocean floor & cute sea creatures doodles -->
+      <div style="width: 100%; position: relative; height: 65px; margin-top: 6px;">
+        
+        <!-- Smiling Pink Jellyfish on Left -->
+        <svg class="doodle" style="left: 8px; top: 4px;" width="44" height="56" viewBox="0 0 44 56" fill="none">
+          <path d="M6 24 C6 10 38 10 38 24 C38 27 34 29 30 27 C26 25 24 28 22 27 C20 26 18 28 14 27 C10 29 6 27 6 24 Z" fill="#fcc2d7" fill-opacity="0.9" stroke="#f06595" stroke-width="1.6"/>
+          <circle cx="17" cy="18" r="1.5" fill="#495057"/>
+          <circle cx="27" cy="18" r="1.5" fill="#495057"/>
+          <path d="M20 22 Q22 24 24 22" stroke="#f06595" stroke-width="1.4" stroke-linecap="round" fill="none"/>
+          <circle cx="14" cy="20" r="1.5" fill="#ff8787"/>
+          <circle cx="30" cy="20" r="1.5" fill="#ff8787"/>
+          <!-- Tentacles -->
+          <path d="M12 28 Q10 38 13 48" stroke="#f783ac" stroke-width="1.8" stroke-linecap="round"/>
+          <path d="M18 28 Q22 37 19 50" stroke="#f783ac" stroke-width="1.8" stroke-linecap="round"/>
+          <path d="M25 28 Q22 38 26 50" stroke="#f783ac" stroke-width="1.8" stroke-linecap="round"/>
+          <path d="M31 28 Q34 38 31 47" stroke="#f783ac" stroke-width="1.8" stroke-linecap="round"/>
+        </svg>
+
+        <!-- Cute Sea Turtle in Middle-left -->
+        <svg class="doodle" style="left: 64px; top: 12px;" width="46" height="42" viewBox="0 0 48 44" fill="none">
+          <!-- Shell -->
+          <ellipse cx="24" cy="22" rx="13" ry="11" fill="#69db7c" stroke="#2b8a3e" stroke-width="1.6"/>
+          <path d="M19 18 L29 18 M16 22 L32 22 M19 26 L29 26" stroke="#2b8a3e" stroke-width="1.2"/>
+          <!-- Head -->
+          <ellipse cx="24" cy="8" rx="5" ry="5.5" fill="#8ce99a" stroke="#2b8a3e" stroke-width="1.4"/>
+          <circle cx="22" cy="7" r="1" fill="#1e3a24"/>
+          <circle cx="26" cy="7" r="1" fill="#1e3a24"/>
+          <!-- Flippers -->
+          <path d="M13 15 C8 12 4 15 6 19 C9 19 13 18 13 15 Z" fill="#8ce99a" stroke="#2b8a3e" stroke-width="1.3"/>
+          <path d="M35 15 C40 12 44 15 42 19 C39 19 35 18 35 15 Z" fill="#8ce99a" stroke="#2b8a3e" stroke-width="1.3"/>
+          <path d="M14 28 C10 31 9 34 12 35 C14 34 16 30 14 28 Z" fill="#8ce99a" stroke="#2b8a3e" stroke-width="1.2"/>
+          <path d="M34 28 C38 31 39 34 36 35 C34 34 32 30 34 28 Z" fill="#8ce99a" stroke="#2b8a3e" stroke-width="1.2"/>
+        </svg>
+
+        <!-- Happy Starfish near bottom right -->
+        <svg class="doodle" style="left: 122px; top: 14px;" width="36" height="36" viewBox="0 0 36 36" fill="none">
+          <path d="M18 3 L21 12 L30 11 L23 18 L26 27 L18 22 L10 27 L13 18 L6 11 L15 12 Z" fill="#ffa94d" stroke="#d9480f" stroke-width="1.5" stroke-linejoin="round"/>
+          <circle cx="16" cy="15" r="1" fill="#495057"/>
+          <circle cx="20" cy="15" r="1" fill="#495057"/>
+          <path d="M17 18 Q18 20 19 18" stroke="#d9480f" stroke-width="1.2" stroke-linecap="round"/>
+        </svg>
+
+        <!-- Little swimming fish -->
+        <svg class="doodle" style="right: 18px; top: 2px;" width="34" height="24" viewBox="0 0 36 24" fill="none">
+          <path d="M8 12 C16 4 26 8 28 12 C26 16 16 20 8 12 Z" fill="#ff922b" stroke="#e8590c" stroke-width="1.5"/>
+          <path d="M28 12 L35 6 L33 12 L35 18 Z" fill="#ff922b" stroke="#e8590c" stroke-width="1.3"/>
+          <circle cx="13" cy="10" r="1.3" fill="#000"/>
+          <path d="M16 11 Q17 14 16 17" stroke="#ffffff" stroke-width="1.5" stroke-linecap="round"/>
+        </svg>
+
+        <!-- Bubbles floating from sea floor -->
+        <div class="bubble" style="width: 12px; height: 12px; left: 45px; top: 16px;"></div>
+        <div class="bubble" style="width: 8px; height: 8px; left: 52px; top: 5px;"></div>
+        <div class="bubble" style="width: 10px; height: 10px; left: 112px; top: 3px;"></div>
+      </div>
+
+      <!-- Signature at the bottom in BLACK text as requested -->
+      <div class="signature-container">
+        <div class="signature-tape">
+          <div class="signature-text">
+            yours sweet little sister <span style="color: #e03131; font-size: 15px;">♥</span>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+</body>
+</html>
